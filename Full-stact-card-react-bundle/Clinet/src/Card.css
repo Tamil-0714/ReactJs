@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+.cardsBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    width: 100%;
+}
+.cardContainer{
+    display: flex;
+    width: 300px;
+    height: auto;
+    min-height: 471.5px;
+    flex-direction: column;
+    border: 1px solid gray;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+
+    padding: 7px;
+    border-radius: 10px;
+    background-color: hsla(315, 100%, 34%, 0.925);
+}
+.top-box{
+    background-color: #d6c8c4;
+    width: 100%;
+    padding: 2px 10px 20px;
+}
+.status{
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    background: hsla(315, 100%, 34%, 0.925);
+    font-weight: 900;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 0 0 13px ;
+}
+.profile-pic{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 10px 0 5px;
+    outline: 1px solid #d961a3;
+    padding: 7px;
+}
+.name, .city{
+    font-weight: 500;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+}
+.buttons button{
+    background: #ff47d1;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 1.1rem;
+    border: none    ;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.1s cubic-bezier(.91,0.24,.49,.94);
+}
+.buttons button:hover{
+    transform: scale(1.1);
+    transition: all 0.1s cubic-bezier(.91,0.24,.49,.94);
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: 1px solid black;
+
+}
+.bottom-box{
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(13, 20%, 85%);
+    height: 156px;
+}
+.skills{
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 3px 0 0 7px;
+    text-align: left;
+}
+.bottom-box ul{
+    list-style-type: none;
+    /* border: 1px solid red; */
+}
+.bottom-box ul li{
+    display: inline-block;
+    margin: 2.5px;
+    border: 1px solid #d961a3;
+    border-radius: 7px;
+    padding: 5px;
+}
