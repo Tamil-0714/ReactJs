@@ -1,0 +1,75 @@
+*{
+  /* margin: 0;
+  padding: 0;
+  box-sizing: border-box; */
+  font-family: sans-serif;
+}
+
+.user-search-container{
+  display: flex;
+  position: relative;
+}
+
+.user-select-input{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius:20px;  
+}
+.user-search-container input{
+  border: none;
+  height: 20px;
+  padding: 5px;
+}
+.user-search-container input:focus{
+  outline: none;
+}
+.suggestion{
+  max-height: 300px;
+  overflow-y: scroll;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.suggestion li{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px ;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+.suggestion li:last-child{
+  border-bottom: none;
+}
+.suggestion li:hover{
+  background-color: #ccc;
+}
+.suggestion li img{
+  height: 20px;
+}
+
+.user-pill{
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: black;
+  color: white;
+  padding:5px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.user-pill img{
+  height: 100%;
+}
+
+
