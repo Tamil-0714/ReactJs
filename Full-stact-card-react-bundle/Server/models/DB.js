@@ -1,10 +1,13 @@
 const mysql2 = require("mysql2");
-
+/*
+create database people and a table user this data
+*/
 function connectDB() {
   const pool = mysql2.createPool({
-    host: "localhost",
-    user: "tamil",
-    password: "For_My_196",
+    host: "",
+    port: ,
+    user: "",
+    password: "",
     database: "peoples",
     waitForConnections: true,
     connectionLimit: 10,
