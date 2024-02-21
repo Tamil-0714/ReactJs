@@ -39,7 +39,7 @@ function App() {
         validateUser(formData);
       }
     } catch (error) {
-      console.error(error+": error message ");;
+      console.error(error+": error message "); 
     }
   }, []);
   const handleIsLogin = (isValid, userData) => {
