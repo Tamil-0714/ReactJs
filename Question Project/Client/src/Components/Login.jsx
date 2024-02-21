@@ -52,18 +52,6 @@ const Login = ({ onLogin, secreatLogin }) => {
     }
   };
 
-  console.log(secreatLogin);
-  if (secreatLogin && secreatLogin !== "not found") {
-    const formData = {
-      id: userId,
-      name: userUame,
-      pass: passowrd,
-      phone: phoneNumber,
-      userKey: secreatLogin,
-    };
-    console.log(formData);
-  }
-
   const validateUser = async (formData) => {
     try {
       secreatLogin !== "not found"
@@ -89,6 +77,21 @@ const Login = ({ onLogin, secreatLogin }) => {
       console.error("error", error);
     }
   };
+
+  // console.log(secreatLogin);
+  // if (secreatLogin && secreatLogin !== "not found") {
+  //   const formData = {
+  //     id: userId,
+  //     name: userUame,
+  //     pass: passowrd,
+  //     phone: phoneNumber,
+  //     userKey: secreatLogin,
+  //   };
+  //   console.log(formData);
+  //   validateUser(formData)
+  // }
+
+  
   const handleAuth = async (e) => {
     e.preventDefault();
     const formData = {

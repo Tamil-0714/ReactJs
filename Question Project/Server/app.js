@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { fetchUsers, fetchQuestion, insertUserKey } = require("./models/DB.js");
+const { fetchUsers, fetchQuestion, insertUserKey, fetchUsersWithKey } = require("./models/DB.js");
 const port = 7080;
 
 app.use(cors());
@@ -30,8 +30,12 @@ const genereateUserKey = () => {
 }
 
 async function validFormData(formData) {
+  console.log(formData);
   if(formData.key){
-    console.log("key presented");
+    const [result] = await fetchUsersWithKey(formData.key);  
+    console.log(result);
+    if(result) return true;
+    return false
   }
   const [result] = await fetchUsers(formData.id);
   if (

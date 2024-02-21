@@ -6,31 +6,61 @@ import Questions from "./Components/Questions";
 function App() {
   const [isLogin, setisLogin] = useState(false);
   const [userKey, setuserKey] = useState("not found");
+  const [validUser, setvalidUser] = useState(false);
 
+  const validateUser = async (formData) => {
+    try {
+      const response = await fetch("http://localhost:7080/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        handleIsLogin(true, formData);
+      } else {
+        handleIsLogin(false, formData);
+      }
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
   useEffect(() => {
-    const storedUser = localStorage.getItem("userKey");
-    if (storedUser && storedUser !== "not found") {
-      setuserKey(JSON.parse(storedUser));
+    try {
+      const storedUser = localStorage.getItem("userKey"); 
+      if (storedUser) {
+        // console.log(storedUser);
+        setuserKey(JSON.parse(storedUser));
+        const formData = {
+          key: storedUser,
+        };
+        validateUser(formData);
+      }
+    } catch (error) {
+      console.error(error+": error message ");;
     }
   }, []);
   const handleIsLogin = (isValid, userData) => {
     setisLogin(isValid);
+    console.log(userData);
     localStorage.setItem("userKey", JSON.stringify(userData.userKey));
   };
 
   return (
     <>
-    {console.log(userKey)}
+      {/* {console.log(userKey)} */}
       <div className="app">
-        {isLogin ? (
+        {/* {isLogin ? (
           <Questions />
         ) : userKey === "not found" ? (
           <Login onLogin={handleIsLogin} />
         ) : (
           <Login secreatLogin={userKey} onLogin={handleIsLogin} />
-        )}
+        )} */}
 
-        {/* {isLogin ? <Questions />: <Login onLogin={handleIsLogin}/>} */}
+        {isLogin ? <Questions /> : <Login onLogin={handleIsLogin} />}
 
         {/* <Questions/> */}
       </div>

@@ -38,13 +38,20 @@ async function fetchUsers(id) {
     throw error;
   }
 }
+async function fetchUsersWithKey(key) {
+  try {
+    return await queryDB(`select * from users where privateKey = ${key}`);
+  } catch (error) {
+    throw error;
+  }
+}
 async function insertUserKey(usrky, id) {
   try {
     return await queryDB(
       `update users set privateKey="${usrky}" where userId = "${id}"`
     );
   } catch (error) {
-    throw error
+    throw error;
   }
 }
-module.exports = { fetchUsers, fetchQuestion, insertUserKey };
+module.exports = { fetchUsers, fetchQuestion, insertUserKey , fetchUsersWithKey};
