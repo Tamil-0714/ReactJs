@@ -20,16 +20,16 @@ function App() {
       const data = await response.json();
       // console.log(data);
       if (data.success) {
-        handleIsLogin(true, formData);
+        handleIsLogin(true, data);
       } else {
-        handleIsLogin(false, formData);
+        handleIsLogin(false, data);
       }
     } catch (error) {
       console.error("error", error);
     }
   };
   useEffect(() => {
-    const storedUser = localStorage.getItem("userKey"); 
+    const storedUser = localStorage.getItem("userKey");
     try {
       if (storedUser !== "undefined") {
         console.log(storedUser);
@@ -40,13 +40,17 @@ function App() {
         validateUser(formData);
       }
     } catch (error) {
-      console.error(error+": error message "); 
+      console.error(error + ": error message ");
     }
   }, []);
   const handleIsLogin = (isValid, userData) => {
     setisLogin(isValid);
-    console.log(userData.userKey);
-    localStorage.setItem("userKey",userData.userKey);
+    console.log(userData);
+    if (userData.success) {
+      localStorage.setItem("userKey", userData.message.privateKey);
+    } else {
+      localStorage.setItem("userKey", userData.userKey);
+    }
   };
 
   return (

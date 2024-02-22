@@ -14,12 +14,15 @@ app.post("/auth", async (req, res) => {
   const formData = req.body;
   //   console.log(await validFormData(formData));
   validatedRes = await validFormData(formData)
-  if(await validFormData(formData) && await validFormData(formData).cotainKey){
+  console.log("validated result is : ",validatedRes);
+  if(validatedRes && validatedRes.cotainKey){
     console.log("im from if box");
     const [result] = await fetchUsersWithKey(formData.key);  
     // res.json({result})    
     console.log(result);
-    res.json({ success: true, message: "User found with secreat key"});
+    res.json({ success: true, message: result});
+    res.json({ success: true, message: result});
+    return;
   }
   if (await validFormData(formData) ){
     userKey = genereateUserKey();
