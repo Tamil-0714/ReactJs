@@ -40,7 +40,7 @@ async function fetchUsers(id) {
 }
 async function fetchUsersWithKey(key) {
   try {
-    return await queryDB(`select * from users where privateKey = ${key}`);
+    return await queryDB(`select * from users where privateKey = "${key}"`);
   } catch (error) {
     throw error;
   }

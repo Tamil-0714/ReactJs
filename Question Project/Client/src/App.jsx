@@ -6,7 +6,7 @@ import Questions from "./Components/Questions";
 function App() {
   const [isLogin, setisLogin] = useState(false);
   const [userKey, setuserKey] = useState("not found");
-  const [validUser, setvalidUser] = useState(false);
+  // const [validUser, setvalidUser] = useState(false);
 
   const validateUser = async (formData) => {
     try {
@@ -18,6 +18,7 @@ function App() {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+      // console.log(data);
       if (data.success) {
         handleIsLogin(true, formData);
       } else {
@@ -28,11 +29,11 @@ function App() {
     }
   };
   useEffect(() => {
+    const storedUser = localStorage.getItem("userKey"); 
     try {
-      const storedUser = localStorage.getItem("userKey"); 
-      if (storedUser) {
-        // console.log(storedUser);
-        setuserKey(JSON.parse(storedUser));
+      if (storedUser !== "undefined") {
+        console.log(storedUser);
+        // setuserKey(JSON.parse(storedUser));
         const formData = {
           key: storedUser,
         };
@@ -44,8 +45,8 @@ function App() {
   }, []);
   const handleIsLogin = (isValid, userData) => {
     setisLogin(isValid);
-    console.log(userData);
-    localStorage.setItem("userKey", JSON.stringify(userData.userKey));
+    console.log(userData.userKey);
+    localStorage.setItem("userKey",userData.userKey);
   };
 
   return (

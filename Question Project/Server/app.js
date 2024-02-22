@@ -13,7 +13,15 @@ app.get("/questions", async (req, res) => {
 app.post("/auth", async (req, res) => {
   const formData = req.body;
   //   console.log(await validFormData(formData));
-  if (await validFormData(formData)){
+  validatedRes = await validFormData(formData)
+  if(await validFormData(formData) && await validFormData(formData).cotainKey){
+    console.log("im from if box");
+    const [result] = await fetchUsersWithKey(formData.key);  
+    // res.json({result})    
+    console.log(result);
+    res.json({ success: true, message: "User found with secreat key"});
+  }
+  if (await validFormData(formData) ){
     userKey = genereateUserKey();
     await insertUserKey(userKey, formData.id)
     res.json({ success: true, message: "User found", userKey:userKey });
@@ -30,11 +38,11 @@ const genereateUserKey = () => {
 }
 
 async function validFormData(formData) {
-  console.log(formData);
+  // console.log(formData);
   if(formData.key){
     const [result] = await fetchUsersWithKey(formData.key);  
-    console.log(result);
-    if(result) return true;
+    // console.log(result);
+    if(result) return {resultStatus:true, cotainKey:true};
     return false
   }
   const [result] = await fetchUsers(formData.id);
