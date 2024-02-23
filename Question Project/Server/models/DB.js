@@ -7,7 +7,7 @@ function connectDB() {
     password: "For_My_196",
     database: "question_app",
     waitForConnections: true,
-    connectionLimit: 50,
+    connectionLimit: 10,
     queueLimit: 0,
   });
   return pool.promise();
@@ -20,29 +20,30 @@ async function queryDB(query) {
     connection.releaseConnection();
     return rows;
   } catch (error) {
-    throw error;
+    console.error(error)
   }
 }
+
 
 async function fetchQuestion() {
   try {
     return await queryDB("select * from questions");
   } catch (error) {
-    throw error;
+    console.error(error)
   }
 }
 async function fetchUsers(id) {
   try {
     return await queryDB(`select * from users where userId = "${id}"`);
   } catch (error) {
-    throw error;
+    console.error(error)
   }
 }
 async function fetchUsersWithKey(key) {
   try {
     return await queryDB(`select * from users where privateKey = "${key}"`);
   } catch (error) {
-    throw error;
+    console.error(error)
   }
 }
 async function insertUserKey(usrky, id) {
@@ -51,7 +52,7 @@ async function insertUserKey(usrky, id) {
       `update users set privateKey="${usrky}" where userId = "${id}"`
     );
   } catch (error) {
-    throw error;
+    console.error(error)
   }
 }
 module.exports = { fetchUsers, fetchQuestion, insertUserKey , fetchUsersWithKey};

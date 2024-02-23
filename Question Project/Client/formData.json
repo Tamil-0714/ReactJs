@@ -1,0 +1,16 @@
+[
+  {
+    "id": "userId",
+    "name": "userUame",
+    "pass": "passowrd",
+    "phone": "phoneNumber",
+    "key": false
+  },
+  {
+    "id": false,
+    "name": false,
+    "pass": false,
+    "phone": false,
+    "key": "somekey"
+  }
+]

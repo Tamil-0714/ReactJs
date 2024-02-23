@@ -1,52 +1,110 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { fetchUsers, fetchQuestion, insertUserKey, fetchUsersWithKey } = require("./models/DB.js");
+const {
+  fetchUsers,
+  fetchQuestion,
+  insertUserKey,
+  fetchUsersWithKey,
+} = require("./models/DB.js");
 const port = 7080;
 
 app.use(cors());
 app.use(express.json());
 
+console.log("hellow o");
 app.get("/questions", async (req, res) => {
   res.json(await fetchQuestion());
+  return;
 });
 app.post("/auth", async (req, res) => {
   const formData = req.body;
-  //   console.log(await validFormData(formData));
-  validatedRes = await validFormData(formData)
-  console.log("validated result is : ",validatedRes);
-  if(validatedRes && validatedRes.cotainKey){
-    console.log("im from if box");
-    const [result] = await fetchUsersWithKey(formData.key);  
-    // res.json({result})    
-    console.log(result);
-    res.json({ success: true, message: result});
-    res.json({ success: true, message: result});
-    return;
+  try {
+    validatedRes = await validFormData(formData);
+    if (validatedRes && validatedRes.cotainKey) {
+      try {
+        const [result] = await fetchUsersWithKey(formData.key);
+        // console.log("key presented", result);
+        /*
+            key presented {
+                        userId: 'Tamil_0714',
+                        userName: 'Tamil',
+                        passowrd: '123@abcd',
+                        phone: '9943112938',
+                        answers: '["a","d","b","b","c"]',
+                        privateKey: 'j511iL^lyuJ52*xx'
+            }
+         */
+        res.json({ success: true, message: "user foud", result: result }); // sending result
+        return;
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (validatedRes) {
+      // console.log("new user form data", formData);
+
+      /*
+          new user form data {
+               id: 'Tamil_0714',
+               name: 'Tamil',
+               pass: '123@abcd',
+               phone: '9943112938',
+               key: false
+          }
+
+       */
+      userKey = genereateUserKey();
+      await insertUserKey(userKey, formData.id);
+      const result = {
+        userId: formData.id,
+        userName: formData.name,
+        passowrd: formData.pass,
+        phone: FormData.phone,
+        privateKey: userKey,
+      };
+      console.log("this result ", result);
+      res.json({ success: true, message: "User found", result: result }); // sending result
+      return;
+    } else {
+      const result = {
+        userId: false,
+        userName: false,
+        passowrd: false,
+        phone: false,
+        privateKey: "undefined",
+      };
+      res.json({
+        success: false,
+        message: "User not found",
+        result: result,
+      }); // sending result
+    }
+  } catch (error) {
+    console.error(error);
   }
-  if (await validFormData(formData) ){
-    userKey = genereateUserKey();
-    await insertUserKey(userKey, formData.id)
-    res.json({ success: true, message: "User found", userKey:userKey });
-  }
-  else res.json({ success: false, message: "User not found" ,userKey:"not found"});
+
+  // if (await validFormData(formData)) {
+  // } else
 });
 const genereateUserKey = () => {
-  const str = "#XxYyZzJjIiLlUu123*54!^Tt"
+  const str = "#XxYyZzJjIiLlUu123*54!^Tt";
   let usrky = ``;
-  for(let i=0; i<16; i++){
-    usrky += str[Math.floor(Math.random()*str.length)];
+  for (let i = 0; i < 16; i++) {
+    usrky += str[Math.floor(Math.random() * str.length)];
   }
   return usrky;
-}
+};
 
 async function validFormData(formData) {
-  // console.log(formData);
-  if(formData.key){
-    const [result] = await fetchUsersWithKey(formData.key);  
-    // console.log(result);
-    if(result) return {resultStatus:true, cotainKey:true};
-    return false
+  if (formData.key) {
+    try {
+      const [result] = await fetchUsersWithKey(formData.key);
+      if (result) return { resultStatus: true, cotainKey: true };
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return false;
   }
   const [result] = await fetchUsers(formData.id);
   if (

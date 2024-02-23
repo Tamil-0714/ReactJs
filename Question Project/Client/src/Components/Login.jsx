@@ -65,13 +65,13 @@ const Login = ({ onLogin, secreatLogin }) => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      formData.userKey = data.userKey;
+      // formData.userKey = data.userKey;
       if (data.success) {
         setvalidUser(true);
-        onLogin(true, formData);
+        onLogin(true, data);
       } else {
         setvalidUser(false);
-        onLogin(false, formData);
+        onLogin(false, data);
       }
     } catch (error) {
       console.error("error", error);
@@ -91,7 +91,6 @@ const Login = ({ onLogin, secreatLogin }) => {
   //   validateUser(formData)
   // }
 
-  
   const handleAuth = async (e) => {
     e.preventDefault();
     const formData = {
@@ -99,6 +98,7 @@ const Login = ({ onLogin, secreatLogin }) => {
       name: userUame,
       pass: passowrd,
       phone: phoneNumber,
+      key: false,
     };
     await validateUser(formData);
   };
