@@ -6,13 +6,14 @@ const {
   fetchQuestion,
   insertUserKey,
   fetchUsersWithKey,
+  fetchAnswers,
+  insertAnswer
 } = require("./models/DB.js");
 const port = 7080;
 
 app.use(cors());
 app.use(express.json());
 
-console.log("hellow o");
 app.get("/questions", async (req, res) => {
   res.json(await fetchQuestion());
   return;
@@ -20,10 +21,19 @@ app.get("/questions", async (req, res) => {
 
 app.get("/answers", async (req, res) => {
   const userKey = req.query.userKey;
-  // console.log("form the user key", userKey);
-  console.log(Math.random()*10);
-    res.json({data:"Answer inserted"})
+  const result = await fetchAnswers(userKey);
+  ansArr = JSON.parse(result[0].answers);
+  res.json(ansArr);
 });
+app.post("/answers", async (req, res) => {
+  const data = req.body.ansStr
+  const userKey = req.body.userKey
+  const result = await insertAnswer(data, userKey);
+  // console.log(result);
+  res.json(result)
+  // console.log("body data",typeof(data[0]));
+});
+console.log("changed");
 
 app.post("/auth", async (req, res) => {
   const formData = req.body;

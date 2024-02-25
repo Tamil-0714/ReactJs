@@ -15,13 +15,34 @@ const Question = ({ question, options, id }) => {
             userKey: userKey,
           },
         });
-        console.log(response.data);
+        const ansArr = response.data;
+        return ansArr;
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
+  const setAnswer = async (ans) => {
+    const userKey = localStorage.getItem("userKey");
+    const ansStr = JSON.stringify(ans);
+
+    const url = `http://localhost:7080/answers`;
+    try {
+      if (userKey && userKey !== "undefined") {
+        const data = {
+          ansStr: ansStr,
+          userKey: userKey,
+        };
+        const response = await axios.post(url, data);
+        if (response.data.affectedRows < 1) {
+          throw new Error("answer not affected")
+        }
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const setAnswer = async () => {};
   const handleAnswerChange = async (e, i) => {
     // console.log(e.target.value);
 
@@ -32,10 +53,9 @@ const Question = ({ question, options, id }) => {
       q4_answer: 3,
       q5_answer: 4,
     };
-    await getAnswer();
-    // ans[q_i[e.target.name]] = i;
-    // console.log(e.target.name);
-    // console.log("Indesx", i);
+    const ans = await getAnswer();
+    ans[q_i[e.target.name]] = i;
+    setAnswer(ans);
   };
   return (
     <div className="question-container">
