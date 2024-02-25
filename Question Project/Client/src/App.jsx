@@ -6,6 +6,7 @@ import Questions from "./Components/Questions";
 function App() {
   const [isLogin, setisLogin] = useState(null);
   const [userDataToQuestion, setuserDataToQuestion] = useState(null);
+  const [invalidCrediantials, setinvalidCrediantials] = useState(false);
 
   const validateUser = async (formData) => {
     try {
@@ -31,7 +32,7 @@ function App() {
     const fetchData = async () => {
       const storedUser = localStorage.getItem("userKey");
       try {
-        if (storedUser !== "undefined") {
+        if (storedUser && storedUser !== "undefined") {
           // console.log(storedUser);
           // const formData = {
           //   key: storedUser,
@@ -56,9 +57,13 @@ function App() {
   }, []);
   const handleIsLogin = (isValid, userData) => {
     setisLogin(isValid);
-    console.log(userData);
-    localStorage.setItem("userKey", userData.result.privateKey);
-    setuserDataToQuestion(userData.message);
+    if (!userData.success) {
+      setinvalidCrediantials(true);
+    } else {
+      localStorage.setItem("userKey", userData.result.privateKey);
+      setuserDataToQuestion(userData.result);
+      setinvalidCrediantials(false);
+    }
   };
 
   if (isLogin === null) {
@@ -68,8 +73,14 @@ function App() {
       </center>
     );
   }
-  if (isLogin) return <Questions usersData={userDataToQuestion} />;
-  return <Login onLogin={handleIsLogin} />;
+  if (isLogin) {
+    return <Questions usersData={userDataToQuestion} />;
+  }
+  return (
+    <Login onLogin={handleIsLogin} invalidCrediantials={invalidCrediantials} />
+  );
+
+  // return <Login onLogin={handleIsLogin} />;
 
   return (
     <>

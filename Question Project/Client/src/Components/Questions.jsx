@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import Question from "./Question";
 
-
-
-const Questions = ({usersData}) => {
-
-  const [userName, setuserName] = useState(null)
-  const [userId, setUserId] = useState(null)
+const Questions = ({ usersData }) => {
+  const [userName, setuserName] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [questions, setquestions] = useState([]);
-  
+
   useEffect(() => {
     console.log(usersData);
     try {
-      setUserId(usersData.id)
-      setuserName(usersData.name)
+      setUserId(usersData.userId);
+      setuserName(usersData.userName);
     } catch (error) {
       console.error(error);
     }
@@ -29,16 +26,18 @@ const Questions = ({usersData}) => {
     fetchQuestions();
   }, []);
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.setItem("userKey", "undefined");
-    location.reload()
-  }
+    location.reload();
+  };
   return (
     <div>
       <div className="user-container">
         <h2 className="userName">{userName}</h2>
         <h4 className="userName">{userId}</h4>
-        <button className="logout-btn" onClick={handleLogout}>LogOut</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          LogOut
+        </button>
       </div>
       <form>
         {questions.map((val, id) => {

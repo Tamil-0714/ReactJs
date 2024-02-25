@@ -1,20 +1,11 @@
 import { useState, useEffect } from "react";
 import "../css/Login.css";
 
-const Login = ({ onLogin, secreatLogin }) => {
+const Login = ({ onLogin, invalidCrediantials }) => {
   const [phoneNumber, setphoneNumber] = useState("");
   const [userId, setuserId] = useState("");
   const [userUame, setuserName] = useState("");
   const [passowrd, setpassowrd] = useState("");
-  const [validUser, setvalidUser] = useState(false);
-  //   const handcleChangePhoneNumber = (e) => {
-  //     if (phoneNumber.length < 10) {
-  //       let cndt = +`${e.target.value.split(" ").join("").trim()}`;
-  //       if (!isNaN(cndt)) {
-  //         setphoneNumber(e.target.value.split(" ").join("").trim());
-  //       }
-  //     }
-  //   };
   const handcleChangePhoneNumber = (e) => {
     let newPhoneNumber = e.target.value.split(" ").join("").trim();
     if (newPhoneNumber.length <= 10) {
@@ -54,9 +45,6 @@ const Login = ({ onLogin, secreatLogin }) => {
 
   const validateUser = async (formData) => {
     try {
-      secreatLogin !== "not found"
-        ? (formData.userKey = secreatLogin)
-        : formData;
       const response = await fetch("http://localhost:7080/auth", {
         method: "POST",
         headers: {
@@ -67,29 +55,14 @@ const Login = ({ onLogin, secreatLogin }) => {
       const data = await response.json();
       // formData.userKey = data.userKey;
       if (data.success) {
-        setvalidUser(true);
         onLogin(true, data);
       } else {
-        setvalidUser(false);
         onLogin(false, data);
       }
     } catch (error) {
       console.error("error", error);
     }
   };
-
-  // console.log(secreatLogin);
-  // if (secreatLogin && secreatLogin !== "not found") {
-  //   const formData = {
-  //     id: userId,
-  //     name: userUame,
-  //     pass: passowrd,
-  //     phone: phoneNumber,
-  //     userKey: secreatLogin,
-  //   };
-  //   console.log(formData);
-  //   validateUser(formData)
-  // }
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -111,7 +84,9 @@ const Login = ({ onLogin, secreatLogin }) => {
           type="text"
           placeholder="User Id"
           name="id"
-          className="login-input"
+          className={
+            invalidCrediantials ? "login-input invalidInput" : "login-input"
+          }
           value={userId}
           autoComplete="off"
           onChange={(e) => handcleChangeuserId(e)}
@@ -120,7 +95,9 @@ const Login = ({ onLogin, secreatLogin }) => {
           type="text"
           placeholder="Name"
           name="name"
-          className="login-input"
+          className={
+            invalidCrediantials ? "login-input invalidInput" : "login-input"
+          }
           value={userUame}
           autoComplete="off"
           onChange={(e) => handcleChangeuserName(e)}
@@ -129,7 +106,9 @@ const Login = ({ onLogin, secreatLogin }) => {
           type="password"
           placeholder="Passowerd"
           name="pass"
-          className="login-input"
+          className={
+            invalidCrediantials ? "login-input invalidInput" : "login-input"
+          }
           value={passowrd}
           autoComplete="off"
           onChange={(e) => handcleChangeuserPass(e)}
@@ -138,7 +117,9 @@ const Login = ({ onLogin, secreatLogin }) => {
           type="text"
           placeholder="Phone"
           name="phone"
-          className="login-input"
+          className={
+            invalidCrediantials ? "login-input invalidInput" : "login-input"
+          }
           value={phoneNumber}
           autoComplete="off"
           onChange={(e) => {

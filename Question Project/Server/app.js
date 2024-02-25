@@ -17,6 +17,14 @@ app.get("/questions", async (req, res) => {
   res.json(await fetchQuestion());
   return;
 });
+
+app.get("/answers", async (req, res) => {
+  const userKey = req.query.userKey;
+  // console.log("form the user key", userKey);
+  console.log(Math.random()*10);
+    res.json({data:"Answer inserted"})
+});
+
 app.post("/auth", async (req, res) => {
   const formData = req.body;
   try {
@@ -106,14 +114,19 @@ async function validFormData(formData) {
     }
     return false;
   }
-  const [result] = await fetchUsers(formData.id);
-  if (
-    result &&
-    result.passowrd === formData.pass &&
-    result.phone === formData.phone &&
-    result.userName === formData.name
-  ) {
-    return true;
+  try {
+    const [result] = await fetchUsers(formData.id);
+    if (
+      result &&
+      result.passowrd === formData.pass &&
+      result.phone === formData.phone &&
+      result.userName === formData.name
+    ) {
+      return true;
+    }
+  } catch (eror) {
+    console.error(eror);
+    return false;
   }
   return false;
 }

@@ -39,6 +39,13 @@ async function fetchUsers(id) {
     console.error(error)
   }
 }
+async function fetchAnswers(key) {
+  try {
+    return await queryDB(`select answers from users where privateKey = "${key}"`);
+  } catch (error) {
+    console.error(error)
+  }
+}
 async function fetchUsersWithKey(key) {
   try {
     return await queryDB(`select * from users where privateKey = "${key}"`);

@@ -48,6 +48,9 @@
     background-color: #000;
     transition: 0.4s ease-in-out;
 }
+.invalidInput{
+    border-color: red !important;
+}
 
 @media screen and (max-width:750px) {
     .login-form{
