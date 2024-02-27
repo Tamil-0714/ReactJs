@@ -25,6 +25,7 @@ async function queryDB(query) {
 }
 
 async function fetchQuestion() {
+  console.log("fetch question called");
   try {
     return await queryDB("select * from questions");
   } catch (error) {
@@ -32,6 +33,8 @@ async function fetchQuestion() {
   }
 }
 async function fetchUsers(id) {
+  // console.log("fetch users called");
+  console.log(Math.random()*10);
   try {
     return await queryDB(`select * from users where userId = "${id}"`);
   } catch (error) {
@@ -39,6 +42,7 @@ async function fetchUsers(id) {
   }
 }
 async function fetchAnswers(key) {
+  console.log("fetch answers called");
   try {
     return await queryDB(
       `select answers from users where privateKey = "${key}"`
@@ -48,6 +52,7 @@ async function fetchAnswers(key) {
   }
 }
 async function fetchUsersWithKey(key) {
+  console.log("fetch users with key called");
   try {
     return await queryDB(`select * from users where privateKey = "${key}"`);
   } catch (error) {
@@ -55,6 +60,7 @@ async function fetchUsersWithKey(key) {
   }
 }
 async function insertUserKey(usrky, id) {
+  console.log("fetch insert user key called");
   try {
     return await queryDB(
       `update users set privateKey="${usrky}" where userId = "${id}"`
@@ -64,11 +70,8 @@ async function insertUserKey(usrky, id) {
   }
 }
 async function insertAnswer(ans, key) {
+  console.log("fetch insert answer called");
   try {
-    // console.log("answr is ",ans);
-    // console.log("key is ",key);
-    // const qry = `update users set answers='${ans}' where privateKey = "${key}"`
-    // console.log(qry);
     return await queryDB(
       `update users set answers='${ans}' where privateKey = "${key}"`
     );
