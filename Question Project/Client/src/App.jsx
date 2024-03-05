@@ -10,7 +10,7 @@ function App() {
 
   const validateUser = async (formData) => {
     try {
-      const response = await fetch("http://localhost:7080/auth", {
+      const response = await fetch("http://192.168.233.160:7080/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function App() {
     const fetchData = async () => {
       const storedUser = localStorage.getItem("userKey");
       try {
-        if (storedUser && storedUser !== "undefined") {
+        if (storedUser && storedUser !== "undefined")   {
           // console.log(storedUser);
           // const formData = {
           //   key: storedUser,
@@ -65,6 +65,7 @@ function App() {
       setinvalidCrediantials(false);
     }
   };
+
 
   if (isLogin === null) {
     return (

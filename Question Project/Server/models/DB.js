@@ -12,7 +12,7 @@ function connectDB() {
   });
   return pool.promise();
 }
-
+  
 async function queryDB(query) {
   try {
     const connection = await connectDB();
@@ -25,7 +25,7 @@ async function queryDB(query) {
 }
 
 async function fetchQuestion() {
-  console.log("fetch question called");
+  // console.log("fetch question called");
   try {
     return await queryDB("select * from questions");
   } catch (error) {
@@ -42,7 +42,7 @@ async function fetchUsers(id) {
   }
 }
 async function fetchAnswers(key) {
-  console.log("fetch answers called");
+  // console.log("fetch answers called");
   try {
     return await queryDB(
       `select answers from users where privateKey = "${key}"`
@@ -52,7 +52,7 @@ async function fetchAnswers(key) {
   }
 }
 async function fetchUsersWithKey(key) {
-  console.log("fetch users with key called");
+  // console.log("fetch users with key called");
   try {
     return await queryDB(`select * from users where privateKey = "${key}"`);
   } catch (error) {
@@ -60,7 +60,7 @@ async function fetchUsersWithKey(key) {
   }
 }
 async function insertUserKey(usrky, id) {
-  console.log("fetch insert user key called");
+  // console.log("fetch insert user key called");
   try {
     return await queryDB(
       `update users set privateKey="${usrky}" where userId = "${id}"`
@@ -70,7 +70,7 @@ async function insertUserKey(usrky, id) {
   }
 }
 async function insertAnswer(ans, key) {
-  console.log("fetch insert answer called");
+  // console.log("fetch insert answer called");
   try {
     return await queryDB(
       `update users set answers='${ans}' where privateKey = "${key}"`

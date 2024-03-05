@@ -45,7 +45,7 @@ const Login = ({ onLogin, invalidCrediantials }) => {
 
   const validateUser = async (formData) => {
     try {
-      const response = await fetch("http://localhost:7080/auth", {
+      const response = await fetch("http://192.168.233.160:7080/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,9 +5,9 @@ const Questions = ({ usersData }) => {
   const [userName, setuserName] = useState(null);
   const [userId, setUserId] = useState(null);
   const [questions, setquestions] = useState([]);
+  const [answer, setanswer] = useState([]);
 
   useEffect(() => {
-    console.log(usersData);
     try {
       setUserId(usersData.userId);
       setuserName(usersData.userName);
@@ -16,9 +16,12 @@ const Questions = ({ usersData }) => {
     }
     async function fetchQuestions() {
       try {
-        const data = await fetch("http://localhost:7080/questions");
+        const data = await fetch("http://192.168.233.160:7080/questions");
         const res = await data.text();
+        const q_l = JSON.parse(res).length;
         setquestions(JSON.parse(res));
+        const ansarr = JSON.parse(usersData.answers);
+        setanswer(ansarr.concat(Array(q_l - ansarr.length).fill("")));
       } catch (error) {
         console.error(error);
       }
@@ -30,6 +33,7 @@ const Questions = ({ usersData }) => {
     localStorage.setItem("userKey", "undefined");
     location.reload();
   };
+  // console.log(answer);
   return (
     <div>
       <div className="user-container">
@@ -44,6 +48,7 @@ const Questions = ({ usersData }) => {
           return (
             <Question
               question={val.question}
+              answer={answer[id]}
               options={JSON.parse(val.options)}
               id={id}
               key={id}
