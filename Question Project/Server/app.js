@@ -25,11 +25,12 @@ app.get("/answers", async (req, res) => {
     const result = await fetchAnswers(userKey);
     ansArr = JSON.parse(result[0].answers);
     res.json(ansArr);
-    return
+    return;
   } catch (error) {
-    console.log("too many connection error occured")
+    console.error("too many connection error occured", error);
   }
 });
+
 app.post("/answers", async (req, res) => {
   const data = req.body.ansStr;
   const userKey = req.body.userKey;
@@ -37,8 +38,8 @@ app.post("/answers", async (req, res) => {
   res.json(result);
 });
 
+
 app.post("/auth", async (req, res) => {
-  // console.log("autho called");
   const formData = req.body;
   try {
     validatedRes = await validFormData(formData);
@@ -107,7 +108,7 @@ async function validFormData(formData) {
     if (
       result &&
       result.passowrd === formData.pass &&
-      result.phone === formData.phone &&
+      result.phone == formData.phone &&
       result.userName === formData.name
     ) {
       return { resultStatus: true, cotainKey: false, result: result };

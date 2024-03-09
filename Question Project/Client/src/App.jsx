@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./css/App.css";
 import Login from "./Components/Login";
 import Questions from "./Components/Questions";
+import { API_BASE_URL } from "./config.js";
 
 function App() {
   const [isLogin, setisLogin] = useState(null);
@@ -10,7 +11,7 @@ function App() {
 
   const validateUser = async (formData) => {
     try {
-      const response = await fetch("http://192.168.233.160:7080/auth", {
+      const response = await fetch(`${API_BASE_URL}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

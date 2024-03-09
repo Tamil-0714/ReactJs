@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/Login.css";
+import { API_BASE_URL } from "../config";
 
 const Login = ({ onLogin, invalidCrediantials }) => {
   const [phoneNumber, setphoneNumber] = useState("");
@@ -26,7 +27,7 @@ const Login = ({ onLogin, invalidCrediantials }) => {
   };
   const handcleChangeuserPass = (e) => {
     let newUserPass = e.target.value.split(" ").join("").trim();
-    if (newUserPass.length <= 8) {
+    if (newUserPass.length <= 12) {
       let cleanedPass = newUserPass;
       if (cleanedPass.length >= 0) {
         setpassowrd(newUserPass);
@@ -45,7 +46,7 @@ const Login = ({ onLogin, invalidCrediantials }) => {
 
   const validateUser = async (formData) => {
     try {
-      const response = await fetch("http://192.168.233.160:7080/auth", {
+      const response = await fetch(`${API_BASE_URL}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,6 +74,7 @@ const Login = ({ onLogin, invalidCrediantials }) => {
       phone: phoneNumber,
       key: false,
     };
+    console.log(formData)
     await validateUser(formData);
   };
 

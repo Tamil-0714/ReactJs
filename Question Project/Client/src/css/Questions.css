@@ -1,0 +1,112 @@
+.nav-container{
+    display: flex;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 0 2px 5px #aaa;
+    /* padding-right: 20px; */
+}
+.user-container{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.heading-container{
+    width: 50%;
+}
+.button-container button{
+    padding: 8px 22px;
+    background-color: black;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 1.1em;
+    transition: 0.4s ease;
+}
+.button-container button:hover{
+    color: black;
+    background-color: white;
+    transition: 0.4s ease;
+
+}
+.form-wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.questions-container{
+    width: 60%;
+}
+
+.hambuger-container{
+    display: none;
+}
+
+@media screen and (max-width:733px){
+    .nav-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .heading-container{
+        width: 100% !important;
+    }
+    .user-container{
+        display: flex;
+        align-items: center;
+        width: 200px !important;
+        height: 100%;
+        background-color: hsl(0, 0%, 95%);
+        position: absolute;
+        top: 60px;
+        left: 0%;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        transition: 0.7s ease;
+    }
+    .user-container-hide{
+        /* display: none; */
+        left: -100%;
+        transition: 2s ease;
+    }
+
+    .user-container h2, .user-container h4, .user-container div{
+        margin: 20px 0;
+    }
+
+    .hambuger-container{
+        display: block !important;
+        width: 60px;
+        height: 100%;
+        margin: 10px 0 0 10px !important;
+    }
+    .hambuger-container div{
+        width: 44px;
+        height: 7px;
+        margin: 5px 0;
+        border-radius: 10px ;
+        background-color: black;
+    }
+
+    .questions-container{
+        width: 100%;
+    }
+    .form-wrapper{
+        display: block;
+    }
+}
+
+@media screen and (max-width:940px){
+    .heading-container{
+        width: 40%;
+    }
+    .user-container{
+        width: 55%;
+    }
+}

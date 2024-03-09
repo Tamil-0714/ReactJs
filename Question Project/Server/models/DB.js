@@ -12,7 +12,7 @@ function connectDB() {
   });
   return pool.promise();
 }
-  
+
 async function queryDB(query) {
   try {
     const connection = await connectDB();
@@ -34,7 +34,8 @@ async function fetchQuestion() {
 }
 async function fetchUsers(id) {
   // console.log("fetch users called");
-  console.log(Math.random()*10);
+  // console.log(Math.random()*10);
+
   try {
     return await queryDB(`select * from users where userId = "${id}"`);
   } catch (error) {
